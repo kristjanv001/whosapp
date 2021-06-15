@@ -1,2 +1,6 @@
-export const getRecipientEmail = (users, userLoggedIn) =>
-  users?.filter((user) => user !== userLoggedIn.email)[0];
+import { FirebaseUser } from "./firebase";
+
+export const getRecipientEmail = (
+  users: string[],
+  userLoggedIn: FirebaseUser
+) => users?.filter((user) => user !== userLoggedIn.email)[0];
