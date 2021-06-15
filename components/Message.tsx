@@ -5,10 +5,10 @@ import { auth } from "../lib/firebase";
 type MessageProps = {
   user: string;
   message: {
-    message: string;
-    photoURL: string;
-    timestamp: any;
-    user: string;
+    message?: string;
+    photoURL?: string;
+    timestamp?: number;
+    user?: string;
   };
 };
 
