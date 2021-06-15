@@ -20,10 +20,18 @@ type ChatScreenProps = {
   messages: string;
 };
 
+type Message = {
+  id: string;
+  message: string;
+  photoURL?: string;
+  timestamp: number;
+  user?: string;
+};
+
 export const ChatScreen = ({ chat, messages }: ChatScreenProps) => {
   const [user] = useAuthState(auth);
   const router = useRouter();
-  const endOfMessagesRef = useRef(null);
+  const endOfMessagesRef = useRef<HTMLDivElement>(null);
 
   const [messagesSnapshot] = useCollection(
     db
@@ -54,7 +62,7 @@ export const ChatScreen = ({ chat, messages }: ChatScreenProps) => {
         />
       ));
     } else {
-      return JSON.parse(messages).map((message) => {
+      return JSON.parse(messages).map((message: Message) => {
         return (
           <Message key={message.id} user={message.user} message={message} />
         );
@@ -62,7 +70,7 @@ export const ChatScreen = ({ chat, messages }: ChatScreenProps) => {
     }
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = (e: React.MouseEvent) => {
     e.preventDefault();
 
     // update last seen
@@ -79,7 +87,7 @@ export const ChatScreen = ({ chat, messages }: ChatScreenProps) => {
       .add({
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         message: input,
-        user: user.email,
+        user: user?.email,
         photoURL: user?.photoURL,
       });
     setInput("");
@@ -90,7 +98,7 @@ export const ChatScreen = ({ chat, messages }: ChatScreenProps) => {
   const recipientEmail = getRecipientEmail(chat.users, user);
 
   const scrollToBottom = () => {
-    endOfMessagesRef.current.scrollIntoView({
+    endOfMessagesRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });

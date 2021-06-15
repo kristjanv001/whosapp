@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { auth } from "../lib/firebase";
 
 type MessageProps = {
-  user: string;
+  user: string | undefined;
   message: {
     message?: string;
     photoURL?: string;
