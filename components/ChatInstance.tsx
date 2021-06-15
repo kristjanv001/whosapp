@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import { Avatar } from "grommet";
-import { User } from "grommet-icons";
 import { getRecipientEmail } from "../lib/getRecipientEmail";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../lib/firebase";
-import firebase from "firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 
 type ChatInstanceProps = {
   id: string;
-  users: firebase.User[];
+  users: string[];
 };
 
 export const ChatInstance = ({ id, users }: ChatInstanceProps) => {
